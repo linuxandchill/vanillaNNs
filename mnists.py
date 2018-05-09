@@ -26,7 +26,7 @@ train_labels = to_categorical(train_labels)
 test_labels = to_categorical(test_labels)
 
 #train model
-history = model.fit(train_images, train_labels, epochs=5, batch_size=128)
+history = model.fit(train_images, train_labels, epochs=5, batch_size=32)
 train_loss, train_acc = history.history['loss'], history.history['acc']
 print('Train Acc: ', train_acc)
 print('Train Loss: ', train_loss)
