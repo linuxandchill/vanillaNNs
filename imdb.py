@@ -32,9 +32,11 @@ from keras.layers.core import Dense, Activation
 from keras.optimizers import RMSprop
 
 model = Sequential()
-model.add(Dense(16, input_shape=(10000,)))
+model.add(Dense(64, input_shape=(10000,)))
 model.add(Activation('relu'))
-model.add(Dense(16))
+model.add(Dense(64))
+model.add(Activation('relu'))
+model.add(Dense(64))
 model.add(Activation('relu'))
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
@@ -54,12 +56,16 @@ model.compile(optimizer=RMSprop(lr=0.001), loss='binary_crossentropy', metrics=[
 history = model.fit(
         partial_x_train,
         partial_y_train,
-        epochs=20,
+        epochs=10,
         batch_size = 512,
         validation_data = (x_validation, y_validation)
         )
 
 model.save('imdb_val.h5')
+results = model.evaluate(x_test, y_test)
+print(f"Results {results}")
+predictions = model.predict(x_test)
+print(f"Predictions {predictions}")
 
 import matplotlib.pyplot as plt
 history_dict = history.history
@@ -70,6 +76,8 @@ val_loss = history_dict['val_loss']
 acc = history_dict['acc']
 val_acc = history_dict['val_acc']
 
+
+'''
 epochs = range(1, len(acc) + 1)
 plt.plot(epochs, loss, 'bo', label="Training loss")
 plt.plot(epochs, val_loss, 'b', label="Validation loss")
@@ -89,5 +97,6 @@ plt.legend()
 plt.show()
 
 
+'''
 
 
