@@ -28,6 +28,8 @@ model.add(Dense(64, input_shape=(10000,)))
 model.add(Activation('relu'))
 model.add(Dense(64))
 model.add(Activation('relu'))
+#N units for N classes
+#softmax for probability distribution
 model.add(Dense(46))
 model.add(Activation('softmax'))
 
