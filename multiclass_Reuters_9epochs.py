@@ -22,6 +22,8 @@ from keras.optimizers import RMSprop
 
 model = Sequential()
 
+#NEED SUFFICIENT INTERMEDIATE UNITS IN LAYER 
+# FOR 46 CLASS CLASSIFICATION PROBLEM
 model.add(Dense(64, input_shape=(10000,)))
 model.add(Activation('relu'))
 model.add(Dense(64))
@@ -40,9 +42,16 @@ partial_x_train = x_train[1000:]
 y_val = vect_train_labels[:1000]
 partial_y_train = vect_train_labels[1000:]
 
-
-history = model.fit(partial_x_train,
+model.fit(partial_x_train,
         partial_y_train,
-        epochs=20,
+        epochs=9,
         batch_size = 512,
         validation_data=(x_val, y_val))
+results = model.evaluate(x_test, vect_test_labels)
+
+predictions = model.predict(x_test)
+
+print(results)
+#print(predictions)
+#returns index w maximum value
+print(np.argmax(predictions[0])
